@@ -29,7 +29,7 @@ def line_diff(s1: str, s2: str, match_speed = "real_quick"):
 #     tree = javalang.parse.parse(java_string)
 #     return parse_results
 
-def big_clone_bench_preprocess(bcb):
+def big_clone_bench_preprocess(bcb, csv_filename=None):
     '''
     Generates DataFrame of features from an input in the format of the BigCloneBench dataset https://huggingface.co/datasets/code_x_glue_cc_clone_detection_big_clone_bench
     '''
@@ -45,5 +45,7 @@ def big_clone_bench_preprocess(bcb):
         # if example["id2"] not in parse_results:
         #     parse_results[example["id2"]] = parse_java(example["func2"])
         df = pd.concat([df, pd.DataFrame([example_dict])], ignore_index=True)
+    if csv_filename != None:
+        df.to_csv(csv_filename)
     return df
              
