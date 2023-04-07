@@ -5,7 +5,15 @@ import click
 from sklearn.metrics import accuracy_score
 import pandas as pd
 from joblib import load
-import matplotlib.pyplot as plt
+import requests
+import os
+
+def download_model(filename):
+    click.echo(f"Downloading model from https://storage.googleapis.com/kamirpa-clone-detection--project-models/{filename}")
+    response = requests.get(f"https://storage.googleapis.com/kamirpa-clone-detection--project-models/{filename}")
+    with open(filename, 'wb') as f:
+        f.write(response.content)
+    click.echo(f"Model saved to {filename}")
 
 def load_model(classifier):
     if classifier == 'svm':
@@ -14,6 +22,8 @@ def load_model(classifier):
         pass
     elif classifier == 'random_forest':
         # get the Random Forest model
+        if (not os.path.exists('random_forest.joblib')):
+            download_model('random_forest.joblib')
         trained_model = load('random_forest.joblib')
         pass
     return trained_model
