@@ -18,6 +18,15 @@ def load_model(classifier):
         pass
     return trained_model
 
+def obtain_features(data_df):
+    features = data_df.drop("target", axis=1)
+
+    # TODO: Remove this when models are trained on new features
+    if (len(features.columns) > 4):
+        features = features[['unique_s1_lines', 'unique_s2_lines', 'shared_lines', 'similarity_ratio']]
+
+    return features
+
 def evaluate_clone_detection(classifier, val_output, test_output):
     """
     evaluate the clone detection model on the given validation, and test datasets.
@@ -34,7 +43,7 @@ def evaluate_clone_detection(classifier, val_output, test_output):
     trained_model = load_model(classifier)    
 
     # Evaluate the model on the validation set
-    val_predictions = trained_model.predict(val_df.drop("target", axis=1))
+    val_predictions = trained_model.predict(obtain_features(val_df))
     # Save val predictions to a CSV file
     pd.DataFrame({"validation_prediction": val_predictions}).to_csv(val_output, index=False)
 
@@ -42,7 +51,7 @@ def evaluate_clone_detection(classifier, val_output, test_output):
     val_accuracy = accuracy_score(val_df["target"], val_predictions)
 
     # Evaluate the model on the test set
-    test_predictions = trained_model.predict( test_df.drop("target", axis=1))
+    test_predictions = trained_model.predict(obtain_features(test_df))
     # Save test predictions to a CSV file
     pd.DataFrame({"test_prediction": val_predictions}).to_csv(test_output, index=False)
 
@@ -60,7 +69,7 @@ def predict_custom_data(custom_data, classifier, prediction_output):
 
     trained_model = load_model(classifier)
 
-    predictions = trained_model.predict(data_df.drop("target", axis=1))
+    predictions = trained_model.predict(obtain_features(data_df))
     pd.DataFrame({"prediction": predictions}).to_csv(prediction_output, index=False)
     click.echo(f'Predictions saved to {prediction_output}')
 
