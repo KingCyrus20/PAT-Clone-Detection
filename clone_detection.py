@@ -66,7 +66,7 @@ def predict_custom_data(custom_data, classifier, prediction_output):
 
 @click.command()
 @click.option('--custom_data', type=click.Path(), default="", help="csv file containing snippets in the same schema as https://huggingface.co/datasets/code_x_glue_cc_clone_detection_big_clone_bench")
-@click.option('--prediction_output', type=click.Path, default="prediction.csv", help="Path to save custom dataset prediction")
+@click.option('--prediction_output', type=click.Path(), default="prediction.csv", help="Path to save custom dataset prediction")
 @click.option('--classifier', type=click.Choice(['svm', 'random_forest']), default='random_forest', help='Set the trained model')
 @click.option('--val_output', type=click.Path(), default='val_prediction.csv', help="Path to save the val prediction")
 @click.option('--test_output', type=click.Path(), default='test_prediction.csv', help="Path to save the test prediction")
