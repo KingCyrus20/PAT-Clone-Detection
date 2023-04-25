@@ -2,6 +2,10 @@
 ML-based code clone detection program for COSC 6386
 
 ## Usage
+Clone this repo including submodules
+```
+git clone --recurse-submodules https://github.com/KingCyrus20/PAT-Clone-Detection.git
+```
 First, install requirements
 ```
 pip install -r requirements.txt
