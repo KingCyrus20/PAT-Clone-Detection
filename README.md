@@ -4,7 +4,7 @@ ML-based code clone detection program for COSC 6386
 ## Usage
 First, install requirements
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Then, run
 ```
