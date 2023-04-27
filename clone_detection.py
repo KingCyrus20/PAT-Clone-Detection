@@ -31,10 +31,6 @@ def load_model(classifier):
 def obtain_features(data_df):
     features = data_df.drop("target", axis=1)
 
-    # TODO: Remove this when models are trained on new features
-    if (len(features.columns) > 4):
-        features = features[['unique_s1_lines', 'unique_s2_lines', 'shared_lines', 'similarity_ratio']]
-
     return features
 
 def evaluate_clone_detection(classifier, val_output, test_output):
